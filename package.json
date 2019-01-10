@@ -1,0 +1,36 @@
+{
+  "name": "niconizer-slack",
+  "description": "CLI that watch slack messages and send to niconizer.",
+  "version": "0.0.0-development",
+  "bin": {
+    "niconizer-slack": "bin"
+  },
+  "bugs": {
+    "url": "https://github.com/matzkoh/niconizer-slack/issues"
+  },
+  "dependencies": {
+    "@slack/client": "4.8.0",
+    "commander": "2.19.0",
+    "emoji-datasource": "4.1.0",
+    "slack-message-parser": "1.0.2",
+    "ws": "6.1.2"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "LICENSE",
+    "README.md"
+  ],
+  "homepage": "https://github.com/matzkoh/niconizer-slack#readme",
+  "keywords": [
+    "comment",
+    "niconizer",
+    "slack"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matzkoh/niconizer-slack.git"
+  },
+  "scripts": {}
+}
