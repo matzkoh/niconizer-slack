@@ -1,5 +1,5 @@
-import program from 'commander';
-import { main } from '../lib';
+import program from 'commander'
+import { main } from '../lib'
 
 program
   .option('-u, --url <url>', 'websocket server url', 'ws://localhost:25252')
@@ -8,4 +8,4 @@ program
   .option('-T, --thread', 'include thread reply', false)
   .option('-B, --bot', 'include bot user', false)
   .action(main)
-  .parse(process.argv);
+  .parse(process.argv)
