@@ -3,11 +3,12 @@
   "description": "CLI that watch slack messages and send to niconizer.",
   "version": "0.0.0-development",
   "bin": {
-    "niconizer-slack": "dist"
+    "niconizer-slack": "dist/index.js"
   },
   "bugs": {
     "url": "https://github.com/matzkoh/niconizer-slack/issues"
   },
+  "dependencies": {},
   "devDependencies": {
     "@slack/client": "4.8.0",
     "commander": "2.19.0",
@@ -20,9 +21,7 @@
     "ws": "6.1.2"
   },
   "files": [
-    "dist",
-    "LICENSE",
-    "README.md"
+    "dist"
   ],
   "homepage": "https://github.com/matzkoh/niconizer-slack#readme",
   "keywords": [
