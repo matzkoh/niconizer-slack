@@ -1,7 +1,5 @@
-#!/usr/bin/env node
-
-const program = require('commander');
-const { main } = require('../lib');
+import program from 'commander';
+import { main } from '../lib';
 
 program
   .option('-u, --url <url>', 'websocket server url', 'ws://localhost:25252')

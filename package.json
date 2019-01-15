@@ -3,21 +3,23 @@
   "description": "CLI that watch slack messages and send to niconizer.",
   "version": "0.0.0-development",
   "bin": {
-    "niconizer-slack": "bin"
+    "niconizer-slack": "dist"
   },
   "bugs": {
     "url": "https://github.com/matzkoh/niconizer-slack/issues"
   },
-  "dependencies": {
+  "devDependencies": {
     "@slack/client": "4.8.0",
     "commander": "2.19.0",
     "emoji-datasource": "4.1.0",
+    "parcel": "1.11.0",
+    "parcel-plugin-clean-easy": "1.0.2",
+    "parcel-plugin-shebang": "1.2.3",
     "slack-message-parser": "1.0.2",
     "ws": "6.1.2"
   },
   "files": [
-    "bin",
-    "lib",
+    "dist",
     "LICENSE",
     "README.md"
   ],
@@ -28,9 +30,16 @@
     "slack"
   ],
   "license": "MIT",
+  "main": "dist",
+  "parcelCleanPaths": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/matzkoh/niconizer-slack.git"
   },
-  "scripts": {}
+  "scripts": {
+    "build": "parcel build --target node --no-source-maps --bundle-node-modules bin/index.js",
+    "watch": "parcel watch --target node --no-source-maps bin/index.js"
+  }
 }
