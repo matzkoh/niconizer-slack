@@ -1,14 +1,14 @@
-const WebSocket = require('ws');
+import WebSocket from 'ws';
 
-let ws;
+let ws: WebSocket;
 
-exports.init = url => {
+export function init(url: string) {
   return new Promise(resolve => {
     ws = new WebSocket(url);
     ws.on('open', resolve);
   });
-};
+}
 
-exports.send = comment => {
+export function send(comment: string) {
   ws.send(comment);
-};
+}

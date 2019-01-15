@@ -1,16 +1,24 @@
-const source = require('emoji-datasource');
+import source from 'emoji-datasource';
+import { Emoji } from 'slack-message-parser';
 
-function findByShortName(name) {
+function findByShortName(name: string) {
   return name ? source.find(emoji => emoji.short_names.includes(name)) : null;
 }
 
-function getUrl(image) {
+function getUrl(image: string) {
   return `https://raw.githubusercontent.com/iamcal/emoji-data/master/img-apple-64/${image}`;
 }
 
-function fixEmojiNodes(nodes) {
+export function fixEmojiNodes(nodes: Emoji[]) {
   const result = [];
-  const names = nodes.reduce((a, { name, variation }) => (a.push(name, variation), a), []).filter(Boolean);
+  const names: string[] = [];
+
+  nodes.forEach(({ name, variation }) => {
+    names.push(name);
+    if (variation) {
+      names.push(variation);
+    }
+  });
 
   for (let i = 0; i < names.length; i++) {
     const name = names[i];
@@ -36,5 +44,3 @@ function fixEmojiNodes(nodes) {
 
   return result;
 }
-
-exports.fixEmojiNodes = fixEmojiNodes;

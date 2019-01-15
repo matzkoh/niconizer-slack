@@ -16,6 +16,7 @@
     "parcel-plugin-clean-easy": "1.0.2",
     "parcel-plugin-shebang": "1.2.3",
     "slack-message-parser": "1.0.2",
+    "typescript": "3.2.2",
     "ws": "6.1.2"
   },
   "files": [
@@ -39,7 +40,7 @@
     "url": "git+https://github.com/matzkoh/niconizer-slack.git"
   },
   "scripts": {
-    "build": "parcel build --target node --no-source-maps --bundle-node-modules bin/index.js",
-    "watch": "parcel watch --target node --no-source-maps bin/index.js"
+    "build": "parcel build --target node --no-source-maps --bundle-node-modules bin/index.ts",
+    "watch": "parcel watch --target node --no-source-maps bin/index.ts"
   }
 }

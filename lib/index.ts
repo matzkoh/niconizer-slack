@@ -1,14 +1,14 @@
-const { RTMClient, WebClient } = require('@slack/client');
-const { parse, render } = require('./parser');
-const ws = require('./socket');
+import { RTMClient, WebClient } from '@slack/client';
+import { parse, render } from './parser';
+import { init, send } from './socket';
 
-exports.main = async options => {
-  const wsConnecting = ws.init(options.url);
+export async function main(options: any) {
+  const wsConnecting = init(options.url);
   const rtm = new RTMClient(options.token);
   const web = new WebClient(options.token);
 
-  const channelMap = {};
-  const userMap = {};
+  const channelMap: Record<string, string> = {};
+  const userMap: Record<string, string> = {};
 
   rtm.on('channel_created', ({ channel }) => {
     channelMap[channel.id] = channel.name;
@@ -34,7 +34,7 @@ exports.main = async options => {
     if (subtype === 'add') {
       emojiMap[name] = value;
     } else if (subtype === 'remove') {
-      names.forEach(name => {
+      names.forEach((name: string) => {
         delete emojiMap[name];
       });
     }
@@ -43,9 +43,9 @@ exports.main = async options => {
   await Promise.all([rtm.start(), wsConnecting]);
 
   const [{ channels }, { members }, { emoji: emojiMap }] = await Promise.all([
-    web.channels.list(),
-    web.users.list(),
-    web.emoji.list(),
+    (web.channels.list() as unknown) as Promise<{ channels: { id: string; name: string }[] }>,
+    (web.users.list() as unknown) as Promise<{ members: { id: string; name: string }[] }>,
+    (web.emoji.list() as unknown) as Promise<{ emoji: Record<string, string> }>,
   ]);
 
   console.log('channels: %d', channels.length);
@@ -73,6 +73,6 @@ exports.main = async options => {
 
     const tree = parse(m.text);
     const comment = render(tree, channelMap, userMap, emojiMap);
-    ws.send(comment);
+    send(comment);
   });
-};
+}
