@@ -16,7 +16,10 @@
     "parcel": "1.11.0",
     "parcel-plugin-clean-easy": "1.0.2",
     "parcel-plugin-shebang": "1.2.3",
+    "prettier": "1.15.3",
     "slack-message-parser": "1.0.2",
+    "tslint": "5.12.1",
+    "tslint-config-prettier": "1.17.0",
     "typescript": "3.2.2",
     "ws": "6.1.2"
   },
