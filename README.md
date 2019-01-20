@@ -24,6 +24,8 @@ Options:
 $ niconizer-slack -t SLACK_API_TOKEN_HERE
 ```
 
+[Create and regenerate API tokens](https://get.slack.help/hc/articles/215770388)
+
 The token is required and others are optional.
 
 If no channel was specified, all messages in the authorization scope of the token in the workspace are send to the niconizer.
