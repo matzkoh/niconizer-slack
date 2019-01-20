@@ -8,20 +8,22 @@
   "bugs": {
     "url": "https://github.com/matzkoh/niconizer-slack/issues"
   },
-  "devDependencies": {
+  "dependencies": {
     "@slack/client": "4.8.0",
     "commander": "2.19.0",
     "emoji-datasource": "4.1.0",
+    "slack-message-parser": "1.0.2",
+    "ws": "6.1.2"
+  },
+  "devDependencies": {
     "parcel": "1.11.0",
     "parcel-plugin-clean-easy": "1.0.2",
     "parcel-plugin-shebang": "1.2.3",
     "prettier": "1.16.0",
     "semantic-release": "15.13.3",
-    "slack-message-parser": "1.0.2",
     "tslint": "5.12.1",
     "tslint-config-prettier": "1.17.0",
-    "typescript": "3.2.4",
-    "ws": "6.1.2"
+    "typescript": "3.2.4"
   },
   "files": [
     "dist"
@@ -42,7 +44,7 @@
     "url": "git+https://github.com/matzkoh/niconizer-slack.git"
   },
   "scripts": {
-    "build": "parcel build --target node --no-source-maps --bundle-node-modules bin/index.ts",
+    "build": "parcel build --target node --no-source-maps bin/index.ts",
     "watch": "parcel watch --target node --no-source-maps bin/index.ts"
   }
 }
