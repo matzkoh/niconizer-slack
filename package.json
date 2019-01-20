@@ -52,6 +52,7 @@
     "lint:ts": "tslint \"!(node_modules)/**/*.ts\"",
     "prebuild": "npm run lint",
     "build": "parcel build --target node --no-source-maps bin/index.ts",
-    "watch": "parcel watch --target node --no-source-maps bin/index.ts"
+    "watch": "parcel watch --target node --no-source-maps bin/index.ts",
+    "release": "semantic-release --no-ci"
   }
 }
