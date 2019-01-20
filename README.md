@@ -1,5 +1,7 @@
 # niconizer-slack
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/matzkoh/niconizer-slack.svg)](https://greenkeeper.io/)
+
 ## Installation
 
 ```bash
