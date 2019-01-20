@@ -44,8 +44,8 @@ export async function main(options: any) {
   await Promise.all([rtm.start(), wsConnecting])
 
   const [{ channels }, { members }, { emoji: emojiMap }] = await Promise.all([
-    (web.channels.list() as unknown) as Promise<{ channels: { id: string; name: string }[] }>,
-    (web.users.list() as unknown) as Promise<{ members: { id: string; name: string }[] }>,
+    (web.channels.list() as unknown) as Promise<{ channels: Array<{ id: string; name: string }> }>,
+    (web.users.list() as unknown) as Promise<{ members: Array<{ id: string; name: string }> }>,
     (web.emoji.list() as unknown) as Promise<{ emoji: Record<string, string> }>,
   ])
 
