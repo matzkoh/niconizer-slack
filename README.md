@@ -1,7 +1,7 @@
 # niconizer-slack
 
-[![Greenkeeper](https://badges.greenkeeper.io/matzkoh/niconizer-slack.svg?style=flat-square)](https://greenkeeper.io/)
-[![npm](https://img.shields.io/npm/v/niconizer-slack.svg?style=flat-square)](https://www.npmjs.com/package/niconizer-slack)
+[![Renovate](https://badges.renovateapi.com/github/matzkoh/niconizer-slack)](https://renovatebot.com/)
+[![npm](https://img.shields.io/npm/v/niconizer-slack.svg)](https://www.npmjs.com/package/niconizer-slack)
 
 ## Installation
 
