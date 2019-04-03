@@ -1,15 +1,16 @@
-import { RTMClient, WebClient } from '@slack/client'
+import { RTMClient } from '@slack/rtm-api'
+import { WebClient } from '@slack/web-api'
 
 import { parse, render } from './parser'
-import { init, send } from './socket'
+import { connect, send } from './socket'
 
 export async function main(options: any) {
-  const wsConnecting = init(options.url)
   const rtm = new RTMClient(options.token)
   const web = new WebClient(options.token)
 
   const channelMap: Record<string, string> = {}
   const userMap: Record<string, string> = {}
+  const emojiMap: Record<string, string> = {}
 
   rtm.on('channel_created', ({ channel }) => {
     channelMap[channel.id] = channel.name
@@ -41,17 +42,14 @@ export async function main(options: any) {
     }
   })
 
-  await Promise.all([rtm.start(), wsConnecting])
+  await connect(options.url)
+  const { self, team }: any = await rtm.start()
 
-  const [{ channels }, { members }, { emoji: emojiMap }] = await Promise.all([
+  const [{ channels }, { members }, { emoji }] = await Promise.all([
     (web.channels.list() as unknown) as Promise<{ channels: Array<{ id: string; name: string }> }>,
     (web.users.list() as unknown) as Promise<{ members: Array<{ id: string; name: string }> }>,
     (web.emoji.list() as unknown) as Promise<{ emoji: Record<string, string> }>,
   ])
-
-  console.log('channels: %d', channels.length)
-  console.log('users: %d', members.length)
-  console.log('emoji: %d', Object.keys(emojiMap).length)
 
   channels.forEach(c => {
     channelMap[c.id] = c.name
@@ -60,6 +58,22 @@ export async function main(options: any) {
   members.forEach(u => {
     userMap[u.id] = u.name
   })
+
+  Object.assign(emojiMap, emoji)
+
+  console.log(
+    JSON.stringify(
+      {
+        team: team.name,
+        name: self.name,
+        channels: channels.length,
+        members: members.length,
+        emoji: Object.keys(emojiMap).length,
+      },
+      null,
+      2,
+    ),
+  )
 
   rtm.on('message', m => {
     if (
