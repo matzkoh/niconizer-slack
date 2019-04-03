@@ -9,7 +9,8 @@
     "url": "https://github.com/matzkoh/niconizer-slack/issues"
   },
   "dependencies": {
-    "@slack/client": "5.0.0",
+    "@slack/rtm-api": "5.0.0",
+    "@slack/web-api": "5.0.0",
     "commander": "2.19.0",
     "emoji-datasource": "4.1.0",
     "slack-message-parser": "1.0.2",
