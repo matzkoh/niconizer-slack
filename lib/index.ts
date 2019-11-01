@@ -4,6 +4,7 @@ import { WebClient } from '@slack/web-api'
 import { parse, render } from './parser'
 import { connect, send } from './socket'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function main(options: any) {
   const rtm = new RTMClient(options.token)
   const web = new WebClient(options.token)
@@ -43,6 +44,7 @@ export async function main(options: any) {
   })
 
   await connect(options.url)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { self, team }: any = await rtm.start()
 
   const [{ channels }, { members }, { emoji }] = await Promise.all([

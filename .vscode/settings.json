@@ -1,0 +1,28 @@
+{
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[typescript]": {
+    "editor.formatOnSave": false
+  },
+  "cSpell.words": ["automerge", "camelcase", "datasource", "niconizer", "unpublish"],
+  "editor.formatOnSave": true,
+  "editor.rulers": [120],
+  "eslint.autoFixOnSave": true,
+  "eslint.validate": [
+    {
+      "autoFix": true,
+      "language": "javascript"
+    },
+    {
+      "autoFix": true,
+      "language": "typescript"
+    }
+  ],
+  "importSorter.importStringConfiguration.hasSemicolon": false,
+  "importSorter.sortConfiguration.importMembers.order": "lowercaseLast",
+  "importSorter.sortConfiguration.importPaths.order": "lowercaseLast",
+  "importSorter.sortConfiguration.removeUnusedDefaultImports": true,
+  "importSorter.sortConfiguration.removeUnusedImports": true,
+  "prettier.disableLanguages": ["javascript", "typescript"]
+}
