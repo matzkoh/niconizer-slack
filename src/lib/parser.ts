@@ -1,33 +1,29 @@
 import { Emoji, Node, NodeType, parse as parseOrg } from 'slack-message-parser'
 
-import { fixEmojiNodes } from './parser-emoji'
+import { EmojiFixedNode, fixEmojiNodes } from './parser-emoji'
 
-interface FixedEmoji extends Emoji {
-  image?: string
-}
-
-export function parse(text: string) {
-  return fixAllEmoji(parseOrg(text))
+export function parse(text: string): EmojiFixedNode {
+  return fixAllEmojiRecursively(parseOrg(text))
 }
 
 export function render(
-  tree: Node,
+  tree: EmojiFixedNode,
   channelMap: Record<string, string>,
   userMap: Record<string, string>,
   emojiMap: Record<string, string>,
-) {
+): string {
   return toHtml(tree, channelMap, userMap, emojiMap).trim()
 }
 
-function fixAllEmoji(tree: Node) {
+function fixAllEmojiRecursively(tree: Node): EmojiFixedNode {
   if ('children' in tree) {
     const { children } = tree
-    const arr = []
+    const arr: EmojiFixedNode[] = []
 
     for (let i = 0; i < children.length; ) {
       const node = children[i]
       if (node.type === NodeType.Emoji) {
-        let endIndex = children.findIndex((node, index) => i < index && node.type !== NodeType.Emoji)
+        let endIndex = children.findIndex((child, index) => i < index && child.type !== NodeType.Emoji)
         if (endIndex === -1) {
           endIndex = children.length
         }
@@ -35,7 +31,7 @@ function fixAllEmoji(tree: Node) {
         arr.push(...fixEmojiNodes(seq))
         i = endIndex
       } else {
-        arr.push(fixAllEmoji(node))
+        arr.push(fixAllEmojiRecursively(node))
         i++
       }
     }
@@ -47,7 +43,7 @@ function fixAllEmoji(tree: Node) {
 }
 
 function toHtml(
-  node: Node,
+  node: EmojiFixedNode,
   channelMap: Record<string, string>,
   userMap: Record<string, string>,
   emojiMap: Record<string, string>,
@@ -79,7 +75,7 @@ function toHtml(
         : `!${[node.name, ...node.arguments].join(' ')}`
 
     case NodeType.Emoji: {
-      const image = emojiMap[node.name] || (node as FixedEmoji).image
+      const image = emojiMap[node.name] || node.image
       return image ? `<img class="emoji" src="${image}">` : `:${node.name}:`
     }
 

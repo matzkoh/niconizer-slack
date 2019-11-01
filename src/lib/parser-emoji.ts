@@ -1,16 +1,22 @@
-import source from 'emoji-datasource'
-import { Emoji } from 'slack-message-parser'
+import source, { EmojiDatasource } from 'emoji-datasource'
+import { Emoji, Node } from 'slack-message-parser'
 
-function findByShortName(name: string) {
-  return name ? source.find(emoji => emoji.short_names.includes(name)) : null
+export interface FixedEmoji extends Emoji {
+  image?: string
 }
 
-function getUrl(image: string) {
+export type EmojiFixedNode = Exclude<Node, Emoji> | FixedEmoji
+
+function findByShortName(name: string): EmojiDatasource | undefined {
+  return name ? source.find(emoji => emoji.short_names.includes(name)) : undefined
+}
+
+function getUrl(image: string): string {
   return `https://raw.githubusercontent.com/iamcal/emoji-data/master/img-apple-64/${image}`
 }
 
-export function fixEmojiNodes(nodes: Emoji[]) {
-  const result = []
+export function fixEmojiNodes(nodes: Emoji[]): FixedEmoji[] {
+  const result: FixedEmoji[] = []
   const names: string[] = []
 
   nodes.forEach(({ name, variation }) => {

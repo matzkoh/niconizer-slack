@@ -1,12 +1,12 @@
 declare module 'emoji-datasource' {
-  interface Emoji {
+  export interface EmojiDatasource {
     unified: string
     image: string
     short_name: string
     short_names: string[]
-    skin_variations: Record<string, Emoji>
+    skin_variations?: Record<string, EmojiDatasource | undefined>
   }
 
-  const source: Emoji[]
+  const source: EmojiDatasource[]
   export default source
 }
