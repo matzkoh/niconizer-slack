@@ -23,7 +23,7 @@
   "main": "dist/lib",
   "types": "dist/lib",
   "bin": {
-    "niconizer-slack": "dist/bin"
+    "niconizer-slack": "dist/bin/index.js"
   },
   "scripts": {
     "prebuild": "shx rm -rf dist",
