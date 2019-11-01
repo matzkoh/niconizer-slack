@@ -8,7 +8,7 @@ orbs:
           - image: circleci/node:12
 
     commands:
-      build:
+      build_test:
         steps:
           - checkout
           - restore_cache:
@@ -38,12 +38,12 @@ orbs:
       default:
         executor: default
         steps:
-          - build
+          - build_test
 
       master:
         executor: default
         steps:
-          - build
+          - build_test
           - release
 
 workflows:

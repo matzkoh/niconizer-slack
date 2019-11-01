@@ -17,23 +17,25 @@
   },
   "license": "MIT",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
-  "main": "dist",
+  "main": "dist/lib",
+  "types": "dist/lib",
   "bin": {
-    "niconizer-slack": "dist/index.js"
+    "niconizer-slack": "dist/bin"
   },
   "scripts": {
-    "build": "parcel build --target node --no-source-maps bin/index.ts",
+    "prebuild": "shx rm -rf dist",
+    "build": "tsc",
     "fix": "run-p fix:*",
     "fix:eslint": "npm run lint:eslint -- --fix",
     "fix:prettier": "npm run lint:prettier -- --write",
     "lint": "run-p lint:*",
     "lint:eslint": "eslint --ext js,ts .",
     "lint:prettier": "prettier -l \"**/*.{json,md,yml}\"",
-    "lint:type": "tsc",
-    "test": "run-s lint",
-    "watch": "parcel watch --target node --no-source-maps bin/index.ts"
+    "lint:type": "tsc --noEmit",
+    "test": "run-s lint build"
   },
   "dependencies": {
     "@slack/rtm-api": "5.0.3",
@@ -53,19 +55,14 @@
     "husky": "3.0.9",
     "lint-staged": "9.4.2",
     "npm-run-all": "4.1.5",
-    "parcel": "1.12.4",
-    "parcel-plugin-clean-easy": "1.0.2",
-    "parcel-plugin-shebang": "1.2.8",
     "prettier": "1.18.2",
     "prettier-plugin-packagejson": "2.0.1",
     "semantic-release": "15.13.28",
+    "shx": "0.3.2",
     "typescript": "3.6.4"
   },
   "engines": {
     "node": ">= 10",
     "npm": ">= 6.4"
-  },
-  "parcelCleanPaths": [
-    "dist"
-  ]
+  }
 }
