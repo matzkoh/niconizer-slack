@@ -1,3 +1,4 @@
-.cache/
+!*.js
+!*.ts
 dist/
 node_modules/

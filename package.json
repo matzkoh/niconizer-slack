@@ -1,59 +1,73 @@
 {
   "name": "niconizer-slack",
-  "description": "CLI that watch slack messages and send to niconizer.",
   "version": "0.0.0-development",
-  "bin": {
-    "niconizer-slack": "dist/index.js"
-  },
+  "description": "CLI that watch slack messages and send to niconizer.",
+  "keywords": [
+    "comment",
+    "niconizer",
+    "slack"
+  ],
+  "homepage": "https://github.com/matzkoh/niconizer-slack#readme",
   "bugs": {
     "url": "https://github.com/matzkoh/niconizer-slack/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matzkoh/niconizer-slack.git"
+  },
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "main": "dist",
+  "bin": {
+    "niconizer-slack": "dist/index.js"
+  },
+  "scripts": {
+    "prebuild": "npm run lint",
+    "build": "parcel build --target node --no-source-maps bin/index.ts",
+    "fix": "run-p fix:*",
+    "fix:eslint": "npm run lint:eslint -- --fix",
+    "fix:prettier": "npm run lint:prettier -- --write",
+    "lint": "run-p lint:*",
+    "lint:eslint": "eslint --ext js,ts .",
+    "lint:prettier": "prettier -l \"**/*.{json,md,yml}\"",
+    "lint:type": "tsc",
+    "release": "semantic-release --no-ci",
+    "test": "run-s lint",
+    "watch": "parcel watch --target node --no-source-maps bin/index.ts"
+  },
   "dependencies": {
     "@slack/rtm-api": "5.0.3",
-    "@slack/web-api": "5.3.0",
+    "@slack/web-api": "5.4.0",
     "commander": "3.0.2",
     "emoji-datasource": "4.1.0",
     "slack-message-parser": "1.0.5",
     "ws": "7.2.0"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "2.6.0",
+    "@typescript-eslint/parser": "2.6.0",
+    "eslint": "6.6.0",
+    "eslint-config-prettier": "6.5.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-prettier": "3.1.1",
+    "husky": "3.0.9",
+    "lint-staged": "9.4.2",
     "npm-run-all": "4.1.5",
     "parcel": "1.12.4",
     "parcel-plugin-clean-easy": "1.0.2",
     "parcel-plugin-shebang": "1.2.8",
     "prettier": "1.18.2",
+    "prettier-plugin-packagejson": "2.0.1",
     "semantic-release": "15.13.28",
-    "tslint": "5.20.0",
-    "tslint-config-prettier": "1.18.0",
     "typescript": "3.6.4"
   },
-  "files": [
-    "dist"
-  ],
-  "homepage": "https://github.com/matzkoh/niconizer-slack#readme",
-  "keywords": [
-    "comment",
-    "niconizer",
-    "slack"
-  ],
-  "license": "MIT",
-  "main": "dist",
+  "engines": {
+    "node": ">= 10",
+    "npm": ">= 6.4"
+  },
   "parcelCleanPaths": [
     "dist"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/matzkoh/niconizer-slack.git"
-  },
-  "scripts": {
-    "prettier-base": "prettier --ignore-path .gitignore \"**/*.{js,json,md,ts}\"",
-    "prettier": "npm run prettier-base -- --write",
-    "lint": "npm-run-all lint:*",
-    "lint:style": "npm run prettier-base -- -c",
-    "lint:ts": "tslint \"!(node_modules)/**/*.ts\"",
-    "prebuild": "npm run lint",
-    "build": "parcel build --target node --no-source-maps bin/index.ts",
-    "watch": "parcel watch --target node --no-source-maps bin/index.ts",
-    "release": "semantic-release --no-ci"
-  }
+  ]
 }

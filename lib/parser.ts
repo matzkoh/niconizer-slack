@@ -91,5 +91,5 @@ function toHtml(
       return node.children.map(n => toHtml(n, channelMap, userMap, emojiMap)).join('')
   }
 
-  const never: never = node
+  return node
 }
