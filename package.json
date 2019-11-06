@@ -59,7 +59,7 @@
     "prettier-plugin-packagejson": "2.0.1",
     "semantic-release": "15.13.30",
     "shx": "0.3.2",
-    "typescript": "3.6.4"
+    "typescript": "3.7.2"
   },
   "engines": {
     "node": ">= 10",
