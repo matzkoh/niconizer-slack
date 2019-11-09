@@ -42,7 +42,7 @@
     "@slack/web-api": "5.4.0",
     "commander": "4.0.0",
     "emoji-datasource": "4.1.0",
-    "slack-message-parser": "1.0.5",
+    "slack-message-parser": "1.0.6",
     "ws": "7.2.0"
   },
   "devDependencies": {
