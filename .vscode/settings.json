@@ -6,23 +6,12 @@
     "editor.formatOnSave": false
   },
   "cSpell.words": ["automerge", "camelcase", "datasource", "niconizer", "unpublish"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
   "editor.formatOnSave": true,
   "editor.rulers": [120],
-  "eslint.autoFixOnSave": true,
-  "eslint.validate": [
-    {
-      "autoFix": true,
-      "language": "javascript"
-    },
-    {
-      "autoFix": true,
-      "language": "typescript"
-    }
-  ],
-  "importSorter.importStringConfiguration.hasSemicolon": false,
-  "importSorter.sortConfiguration.importMembers.order": "lowercaseLast",
-  "importSorter.sortConfiguration.importPaths.order": "lowercaseLast",
-  "importSorter.sortConfiguration.removeUnusedDefaultImports": true,
-  "importSorter.sortConfiguration.removeUnusedImports": true,
-  "prettier.disableLanguages": ["javascript", "typescript"]
+  "eslint.validate": ["javascript", "typescript"],
+  "prettier.disableLanguages": ["javascript", "typescript"],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
