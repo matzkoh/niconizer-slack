@@ -16,15 +16,15 @@
     "url": "git+https://github.com/matzkoh/niconizer-slack.git"
   },
   "license": "MIT",
-  "files": [
-    "dist",
-    "src"
-  ],
   "main": "dist/lib",
   "types": "dist/lib",
   "bin": {
     "niconizer-slack": "dist/bin/index.js"
   },
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "prebuild": "shx rm -rf dist",
     "build": "tsc",
