@@ -10,5 +10,13 @@ program
   .option('-c, --channel <name|id>', 'slack channel name/id')
   .option('-T, --thread', 'include thread reply', false)
   .option('-B, --bot', 'include bot user', false)
-  .action(main)
+  .action(options => main(options).catch(console.error))
   .parse(process.argv)
+
+export interface CliOptions {
+  token: string
+  url: string
+  channel: string
+  thread?: boolean
+  bot?: boolean
+}

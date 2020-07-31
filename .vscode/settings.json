@@ -5,7 +5,7 @@
   "[typescript]": {
     "editor.formatOnSave": false
   },
-  "cSpell.words": ["automerge", "camelcase", "datasource", "niconizer", "unpublish"],
+  "cSpell.words": ["automerge", "camelcase", "datasource", "mpim", "niconizer", "unpublish"],
   "editor.codeActionsOnSave": {
     "source.fixAll": true
   },

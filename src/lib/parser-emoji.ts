@@ -21,6 +21,7 @@ export function fixEmojiNodes(nodes: Emoji[]): FixedEmoji[] {
 
   nodes.forEach(({ name, variation }) => {
     names.push(name)
+
     if (variation) {
       names.push(variation)
     }
@@ -29,15 +30,20 @@ export function fixEmojiNodes(nodes: Emoji[]): FixedEmoji[] {
   for (let i = 0; i < names.length; i++) {
     const name = names[i]
     const left = findByShortName(name)
+
     if (left) {
       const variations = left.skin_variations
+
       if (variations) {
         const right = findByShortName(names[i + 1])
+
         if (right) {
           const variation = variations[right.unified]
+
           if (variation) {
             result.push({ type: 5, name, variation: right.short_name, image: getUrl(variation.image) })
             i++
+
             continue
           }
         }

@@ -7,7 +7,7 @@ module.exports = {
   trailingComma: 'all',
   overrides: [
     {
-      files: '*.{md,yml}',
+      files: '*.{md,yaml,yml}',
       options: {
         printWidth: 80,
         semi: true,
