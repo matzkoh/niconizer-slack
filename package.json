@@ -7,14 +7,7 @@
     "niconizer",
     "slack"
   ],
-  "homepage": "https://github.com/matzkoh/niconizer-slack#readme",
-  "bugs": {
-    "url": "https://github.com/matzkoh/niconizer-slack/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/matzkoh/niconizer-slack.git"
-  },
+  "repository": "github:matzkoh/niconizer-slack",
   "license": "MIT",
   "main": "dist/lib",
   "types": "dist/lib",
@@ -26,7 +19,7 @@
     "src"
   ],
   "scripts": {
-    "prebuild": "shx rm -rf dist",
+    "prebuild": "rimraf dist",
     "build": "tsc",
     "fix": "run-p fix:*",
     "fix:eslint": "npm run lint:eslint -- --fix",
@@ -40,29 +33,30 @@
   "dependencies": {
     "@slack/rtm-api": "5.0.5",
     "@slack/web-api": "5.11.0",
-    "commander": "5.1.0",
+    "commander": "6.0.0",
     "emoji-datasource": "5.0.1",
     "slack-message-parser": "1.0.6",
     "ws": "7.3.1"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "2.34.0",
-    "@typescript-eslint/parser": "2.34.0",
-    "eslint": "6.8.0",
+    "@typescript-eslint/eslint-plugin": "3.7.1",
+    "@typescript-eslint/parser": "3.7.1",
+    "eslint": "7.5.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-import": "2.22.0",
     "eslint-plugin-prettier": "3.1.4",
+    "eslint-plugin-simple-import-sort": "5.0.3",
     "husky": "4.2.5",
     "lint-staged": "10.2.11",
     "npm-run-all": "4.1.5",
     "prettier": "2.0.5",
     "prettier-plugin-packagejson": "2.2.5",
+    "rimraf": "3.0.2",
     "semantic-release": "17.1.1",
-    "shx": "0.3.2",
     "typescript": "3.9.7"
   },
   "engines": {
-    "node": ">= 10",
-    "npm": ">= 6.4"
+    "node": ">= 12",
+    "npm": ">= 6.14"
   }
 }

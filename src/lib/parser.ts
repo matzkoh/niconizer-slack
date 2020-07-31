@@ -3,50 +3,53 @@ import { Emoji, Node, NodeType, parse as parseOrg } from 'slack-message-parser'
 import { EmojiFixedNode, fixEmojiNodes } from './parser-emoji'
 
 export function parse(text: string): EmojiFixedNode {
-  return fixAllEmojiRecursively(parseOrg(text))
+  return fixAllEmojisRecursively(parseOrg(text))
 }
 
 export function render(
-  tree: EmojiFixedNode,
-  channelMap: Record<string, string>,
-  userMap: Record<string, string>,
-  emojiMap: Record<string, string>,
+  node: EmojiFixedNode,
+  channelMap: Map<string, string>,
+  userMap: Map<string, string>,
+  emojiMap: Map<string, string>,
 ): string {
-  return toHtml(tree, channelMap, userMap, emojiMap).trim()
+  return toHtml(node, channelMap, userMap, emojiMap).trim()
 }
 
-function fixAllEmojiRecursively(tree: Node): EmojiFixedNode {
-  if ('children' in tree) {
-    const { children } = tree
+function fixAllEmojisRecursively(node: Node): EmojiFixedNode {
+  if ('children' in node) {
+    const { children } = node
     const arr: EmojiFixedNode[] = []
 
     for (let i = 0; i < children.length; ) {
       const node = children[i]
+
       if (node.type === NodeType.Emoji) {
         let endIndex = children.findIndex((child, index) => i < index && child.type !== NodeType.Emoji)
+
         if (endIndex === -1) {
           endIndex = children.length
         }
+
         const seq = children.slice(i, endIndex) as Emoji[]
         arr.push(...fixEmojiNodes(seq))
         i = endIndex
       } else {
-        arr.push(fixAllEmojiRecursively(node))
+        arr.push(fixAllEmojisRecursively(node))
         i++
       }
     }
 
-    tree.children = arr
+    node.children = arr
   }
 
-  return tree
+  return node
 }
 
 function toHtml(
   node: EmojiFixedNode,
-  channelMap: Record<string, string>,
-  userMap: Record<string, string>,
-  emojiMap: Record<string, string>,
+  channelMap: Map<string, string>,
+  userMap: Map<string, string>,
+  emojiMap: Map<string, string>,
 ): string {
   switch (node.type) {
     case NodeType.Text:
@@ -59,12 +62,12 @@ function toHtml(
     case NodeType.ChannelLink:
       return node.label
         ? `#${node.label.map(n => toHtml(n, channelMap, userMap, emojiMap)).join('')}`
-        : `#${channelMap[node.channelID] || node.channelID}`
+        : `#${channelMap.get(node.channelID) ?? node.channelID}`
 
     case NodeType.UserLink:
       return node.label
         ? `@${node.label.map(n => toHtml(n, channelMap, userMap, emojiMap)).join('')}`
-        : `@${userMap[node.userID] || node.userID}`
+        : `@${userMap.get(node.userID) ?? node.userID}`
 
     case NodeType.URL:
       return node.label ? node.label.map(n => toHtml(n, channelMap, userMap, emojiMap)).join('') : node.url
@@ -75,7 +78,8 @@ function toHtml(
         : `!${[node.name, ...node.arguments].join(' ')}`
 
     case NodeType.Emoji: {
-      const image = emojiMap[node.name] || node.image
+      const image = emojiMap.get(node.name) ?? node.image
+
       return image ? `<img class="emoji" src="${image}">` : `:${node.name}:`
     }
 
@@ -86,6 +90,4 @@ function toHtml(
     case NodeType.Root:
       return node.children.map(n => toHtml(n, channelMap, userMap, emojiMap)).join('')
   }
-
-  return node
 }
