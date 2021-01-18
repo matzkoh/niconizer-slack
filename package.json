@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@slack/rtm-api": "6.0.0",
-    "@slack/web-api": "5.14.0",
+    "@slack/web-api": "5.15.0",
     "commander": "7.0.0",
     "emoji-datasource": "6.0.0",
     "slack-message-parser": "1.0.7",
