@@ -5,7 +5,7 @@ orbs:
     executors:
       default:
         docker:
-          - image: circleci/node:12
+          - image: circleci/node:15
 
     commands:
       build_test:
