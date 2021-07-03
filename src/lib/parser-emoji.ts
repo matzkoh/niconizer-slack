@@ -1,5 +1,5 @@
 import source, { EmojiDatasource } from 'emoji-datasource'
-import { Emoji, Node } from 'slack-message-parser'
+import { Emoji, Node, NodeType } from 'slack-message-parser'
 
 export interface FixedEmoji extends Emoji {
   image?: string
@@ -11,13 +11,14 @@ function findByShortName(name: string): EmojiDatasource | undefined {
   return name ? source.find(emoji => emoji.short_names.includes(name)) : undefined
 }
 
-function getUrl(image: string): string {
+function getEmojiUrl(image: string): string {
   return `https://raw.githubusercontent.com/iamcal/emoji-data/master/img-apple-64/${image}`
 }
 
 export function fixEmojiNodes(nodes: Emoji[]): FixedEmoji[] {
-  const result: FixedEmoji[] = []
+  const results: FixedEmoji[] = []
   const names: string[] = []
+  const source = nodes.map(n => n.source).join('')
 
   nodes.forEach(({ name, variation }) => {
     names.push(name)
@@ -30,6 +31,11 @@ export function fixEmojiNodes(nodes: Emoji[]): FixedEmoji[] {
   for (let i = 0; i < names.length; i++) {
     const name = names[i]
     const left = findByShortName(name)
+    const result = {
+      type: NodeType.Emoji,
+      name,
+      source,
+    } as const
 
     if (left) {
       const variations = left.skin_variations
@@ -41,18 +47,25 @@ export function fixEmojiNodes(nodes: Emoji[]): FixedEmoji[] {
           const variation = variations[right.unified]
 
           if (variation) {
-            result.push({ type: 5, name, variation: right.short_name, image: getUrl(variation.image) })
+            results.push({
+              ...result,
+              variation: right.short_name,
+              image: getEmojiUrl(variation.image),
+            })
             i++
 
             continue
           }
         }
       }
-      result.push({ type: 5, name, image: getUrl(left.image) })
+      results.push({
+        ...result,
+        image: getEmojiUrl(left.image),
+      })
     } else {
-      result.push({ type: 5, name })
+      results.push(result)
     }
   }
 
-  return result
+  return results
 }
