@@ -29,8 +29,6 @@
     "lint:eslint": "eslint --ext js,ts .",
     "lint:prettier": "prettier -l \"**/*.{json,md,yml}\"",
     "lint:type": "tsc --noEmit",
-    "prepublishOnly": "pinst --disable",
-    "postpublish": "pinst --enable",
     "test": "run-s lint build"
   },
   "dependencies": {
@@ -52,7 +50,6 @@
     "husky": "6.0.0",
     "lint-staged": "11.0.0",
     "npm-run-all": "4.1.5",
-    "pinst": "2.1.6",
     "prettier": "2.3.2",
     "prettier-plugin-packagejson": "2.2.11",
     "rimraf": "3.0.2",
