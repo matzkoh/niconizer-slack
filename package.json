@@ -29,14 +29,12 @@
     "lint:eslint": "eslint --ext js,ts .",
     "lint:prettier": "prettier -l \"**/*.{json,md,yml}\"",
     "lint:type": "tsc --noEmit",
-    "prepublishOnly": "pinst --disable",
-    "postpublish": "pinst --enable",
     "test": "run-s lint build"
   },
   "dependencies": {
     "@slack/rtm-api": "6.0.0",
     "@slack/web-api": "6.2.4",
-    "commander": "7.2.0",
+    "commander": "8.0.0",
     "emoji-datasource": "7.0.2",
     "slack-message-parser": "1.1.0",
     "ws": "7.5.1"
@@ -52,7 +50,6 @@
     "husky": "6.0.0",
     "lint-staged": "11.0.0",
     "npm-run-all": "4.1.5",
-    "pinst": "2.1.6",
     "prettier": "2.3.2",
     "prettier-plugin-packagejson": "2.2.11",
     "rimraf": "3.0.2",
