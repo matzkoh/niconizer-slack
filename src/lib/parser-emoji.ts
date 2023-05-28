@@ -1,5 +1,7 @@
-import source, { EmojiDatasource } from 'emoji-datasource'
-import { Emoji, Node, NodeType } from 'slack-message-parser'
+import type { EmojiDatasource } from 'emoji-datasource'
+import source from 'emoji-datasource'
+import type { Emoji, Node } from 'slack-message-parser'
+import { NodeType } from 'slack-message-parser'
 
 export interface FixedEmoji extends Emoji {
   image?: string

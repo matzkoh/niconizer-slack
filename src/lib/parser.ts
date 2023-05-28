@@ -1,6 +1,8 @@
-import { Emoji, Node, NodeType, parse as parseOrg } from 'slack-message-parser'
+import type { Emoji, Node } from 'slack-message-parser'
+import { NodeType, parse as parseOrg } from 'slack-message-parser'
 
-import { EmojiFixedNode, fixEmojiNodes } from './parser-emoji'
+import type { EmojiFixedNode } from './parser-emoji'
+import { fixEmojiNodes } from './parser-emoji'
 
 export function parse(text: string): EmojiFixedNode {
   return fixAllEmojisRecursively(parseOrg(text))

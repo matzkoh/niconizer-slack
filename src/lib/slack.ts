@@ -1,5 +1,12 @@
+/* eslint-disable
+  @typescript-eslint/no-unsafe-call,
+  @typescript-eslint/no-unsafe-member-access,
+  @typescript-eslint/no-unsafe-argument,
+*/
+
 import { RTMClient } from '@slack/rtm-api'
-import { ConversationsListArguments, WebClient } from '@slack/web-api'
+import type { ConversationsListArguments } from '@slack/web-api'
+import { WebClient } from '@slack/web-api'
 
 interface Resource {
   id: string

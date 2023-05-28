@@ -1,4 +1,10 @@
+/* eslint-disable
+  @typescript-eslint/no-unsafe-member-access,
+  @typescript-eslint/no-unsafe-argument,
+*/
+
 import type { CliOptions } from '../bin'
+
 import { parse, render } from './parser'
 import { SlackClient } from './slack'
 import { connect, send } from './socket'

@@ -1,17 +1,9 @@
 {
-  "[javascript]": {
-    "editor.formatOnSave": false
-  },
-  "[typescript]": {
-    "editor.formatOnSave": false
-  },
-  "cSpell.words": ["automerge", "camelcase", "datasource", "mpim", "niconizer", "pinst", "unpublish"],
   "editor.codeActionsOnSave": {
     "source.fixAll": true
   },
   "editor.formatOnSave": true,
   "editor.rulers": [120],
   "eslint.validate": ["javascript", "typescript"],
-  "prettier.disableLanguages": ["javascript", "typescript"],
   "typescript.tsdk": "node_modules/typescript/lib"
 }
