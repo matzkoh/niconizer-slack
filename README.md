@@ -1,7 +1,8 @@
 # niconizer-slack
 
-[![CircleCI](https://circleci.com/gh/matzkoh/niconizer-slack.svg?style=shield)](https://circleci.com/gh/matzkoh/niconizer-slack)
-[![Renovate](https://badges.renovateapi.com/github/matzkoh/niconizer-slack)](https://renovatebot.com/)
+![test workflow](https://github.com/matzkoh/niconizer-slack/actions/workflows/test.yml/badge.svg)
+![release workflow](https://github.com/matzkoh/niconizer-slack/actions/workflows/release.yml/badge.svg)
+[![Renovate enabled](https://img.shields.io/badge/Renovate-enabled-brightgreen.svg?logo=renovatebot)](https://renovatebot.com/)
 [![npm](https://img.shields.io/npm/v/niconizer-slack.svg)](https://www.npmjs.com/package/niconizer-slack)
 
 ## Installation
