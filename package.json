@@ -41,8 +41,8 @@
     "ws": "8.13.0"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "6.2.1",
-    "@typescript-eslint/parser": "6.2.1",
+    "@typescript-eslint/eslint-plugin": "6.3.0",
+    "@typescript-eslint/parser": "6.3.0",
     "cspell": "6.31.3",
     "eslint": "8.46.0",
     "eslint-config-prettier": "9.0.0",
