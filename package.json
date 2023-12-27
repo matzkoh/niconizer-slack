@@ -38,7 +38,7 @@
     "commander": "11.1.0",
     "emoji-datasource": "15.0.1",
     "slack-message-parser": "3.0.2",
-    "ws": "8.15.1"
+    "ws": "8.16.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "6.16.0",
