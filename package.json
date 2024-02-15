@@ -26,8 +26,8 @@
     "fix:prettier": "npm run lint:prettier -- --write",
     "postinstall": "husky install",
     "lint": "run-p lint:*",
-    "lint:eslint": "eslint --ext js,ts .",
-    "lint:prettier": "prettier -l \"**/*.{json,md,yml}\"",
+    "lint:eslint": "eslint .",
+    "lint:prettier": "prettier -c .",
     "lint:spell": "cspell --gitignore --no-progress .",
     "lint:type": "tsc --noEmit",
     "test": "run-s lint build"

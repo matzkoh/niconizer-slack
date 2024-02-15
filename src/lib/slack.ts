@@ -34,7 +34,10 @@ export class SlackClient {
     return new SlackClient(new RTMClient(token), new WebClient(token))
   }
 
-  constructor(public rtm: RTMClient, public web: WebClient) {
+  constructor(
+    public rtm: RTMClient,
+    public web: WebClient,
+  ) {
     rtm.on('channel_created', ({ channel }) => this.channels.set(channel.id, channel.name))
     rtm.on('channel_rename', ({ channel }) => this.channels.set(channel.id, channel.name))
     rtm.on('channel_deleted', ({ channel }) => this.channels.delete(channel))
@@ -106,13 +109,13 @@ export class SlackClient {
   }
 
   async *fetchAllUsers() {
-    const { members } = await this.web.users.list()
+    const { members } = await this.web.users.list({})
 
     yield* members as User[]
   }
 
   async *fetchAllEmojis() {
-    const { emoji } = await this.web.emoji.list()
+    const { emoji } = await this.web.emoji.list({})
 
     for (const [name, value] of Object.entries(emoji as Record<string, string>)) {
       yield { name, value } as Emoji

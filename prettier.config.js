@@ -5,6 +5,9 @@ module.exports = {
   semi: false,
   singleQuote: true,
   trailingComma: 'all',
+
+  plugins: ['prettier-plugin-packagejson'],
+
   overrides: [
     {
       files: '*.{md,yaml,yml}',
