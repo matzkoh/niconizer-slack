@@ -33,7 +33,7 @@
     "test": "run-s lint build"
   },
   "dependencies": {
-    "@slack/rtm-api": "6.2.1",
+    "@slack/rtm-api": "7.0.0",
     "@slack/web-api": "7.3.1",
     "commander": "12.1.0",
     "emoji-datasource": "15.1.2",
