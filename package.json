@@ -9,22 +9,25 @@
   ],
   "repository": "github:matzkoh/niconizer-slack",
   "license": "MIT",
-  "main": "dist/lib",
-  "types": "dist/lib",
+  "type": "module",
+  "exports": {
+    "./*": "./dist/lib/*.js"
+  },
   "bin": {
-    "niconizer-slack": "dist/bin/index.js"
+    "niconizer-slack": "./dist/bin/index.js"
   },
   "files": [
     "dist",
     "src"
   ],
   "scripts": {
+    "dev": "tsx --env-file=.env.local ./src/bin/index.ts",
+    "prepare": "husky",
     "prebuild": "rimraf dist",
     "build": "tsc",
     "fix": "run-p fix:*",
     "fix:eslint": "npm run lint:eslint -- --fix",
     "fix:prettier": "npm run lint:prettier -- --write",
-    "postinstall": "husky install",
     "lint": "run-p lint:*",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier -c .",
@@ -33,7 +36,7 @@
     "test": "run-s lint build"
   },
   "dependencies": {
-    "@slack/rtm-api": "6.2.1",
+    "@slack/socket-mode": "2.0.0",
     "@slack/web-api": "7.3.1",
     "commander": "12.1.0",
     "emoji-datasource": "15.1.2",
@@ -41,22 +44,26 @@
     "ws": "8.18.0"
   },
   "devDependencies": {
+    "@tsconfig/node20": "20.1.4",
     "@typescript-eslint/eslint-plugin": "7.16.0",
     "@typescript-eslint/parser": "7.16.0",
     "cspell": "8.10.4",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
+    "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-import": "2.29.1",
     "husky": "9.0.11",
     "lint-staged": "15.2.7",
     "npm-run-all2": "6.2.2",
-    "prettier": "3.3.2",
+    "prettier": "3.3.3",
     "prettier-plugin-packagejson": "2.5.0",
     "rimraf": "6.0.1",
+    "tsx": "4.16.2",
     "typescript": "5.5.3"
   },
+  "packageManager": "npm@10.8.2",
   "engines": {
-    "node": ">= 18",
+    "node": ">= 20",
     "npm": ">= 9"
   }
 }

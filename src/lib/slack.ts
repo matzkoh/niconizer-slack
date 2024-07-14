@@ -1,12 +1,15 @@
 /* eslint-disable
+  @typescript-eslint/no-unsafe-argument,
   @typescript-eslint/no-unsafe-call,
   @typescript-eslint/no-unsafe-member-access,
-  @typescript-eslint/no-unsafe-argument,
 */
 
-import { RTMClient } from '@slack/rtm-api'
+import { SocketModeClient } from '@slack/socket-mode'
 import type { ConversationsListArguments } from '@slack/web-api'
 import { WebClient } from '@slack/web-api'
+
+import type { EmojiFixedNode } from './parser-emoji.js'
+import { render } from './render.js'
 
 interface Resource {
   id: string
@@ -22,20 +25,22 @@ interface Emoji {
   value: string
 }
 
+interface SlackClientOptions {
+  token: string
+  appToken: string
+}
+
 export class SlackClient {
   public channels = new Map<string, string>()
   public users = new Map<string, string>()
   public emojis = new Map<string, string>()
 
-  public teamName: string | undefined
-  public selfName: string | undefined
-
-  static create(token: string) {
-    return new SlackClient(new RTMClient(token), new WebClient(token))
+  static create({ token, appToken }: SlackClientOptions) {
+    return new SlackClient(new SocketModeClient({ appToken }), new WebClient(token))
   }
 
   constructor(
-    public rtm: RTMClient,
+    public rtm: SocketModeClient,
     public web: WebClient,
   ) {
     rtm.on('channel_created', ({ channel }) => this.channels.set(channel.id, channel.name))
@@ -54,8 +59,6 @@ export class SlackClient {
 
   getStats() {
     return {
-      team: this.teamName,
-      name: this.selfName,
       channels: this.channels.size,
       members: this.users.size,
       emoji: this.emojis.size,
@@ -77,15 +80,9 @@ export class SlackClient {
   }
 
   async start() {
-    const { self, team } = await this.rtm.start()
+    await this.rtm.start()
 
-    if (hasName(self)) {
-      this.selfName = self.name
-    }
-
-    if (hasName(team)) {
-      this.teamName = team.name
-    }
+    process.once('SIGINT', () => void this.rtm.disconnect())
   }
 
   async *fetchAllConversations() {
@@ -121,6 +118,10 @@ export class SlackClient {
       yield { name, value } as Emoji
     }
   }
+
+  renderComment(node: EmojiFixedNode) {
+    return render(node, this.channels, this.users, this.emojis)
+  }
 }
 
 async function iterateAsync<T>(gen: AsyncGenerator<T, void, undefined>, fn: (item: T) => void): Promise<void> {
@@ -129,6 +130,12 @@ async function iterateAsync<T>(gen: AsyncGenerator<T, void, undefined>, fn: (ite
   }
 }
 
-function hasName(obj: unknown): obj is { name: string } {
-  return typeof (obj as { name: string } | undefined)?.name === 'string'
+export function getPermalink(channel: string, ts: string, thread_ts?: string) {
+  const url = new URL(`https://karakuri-ai.slack.com/archives/${channel}/p${ts.replace(/\D/g, '')}`)
+
+  if (thread_ts) {
+    url.searchParams.set('thread_ts', thread_ts)
+  }
+
+  return url.href
 }

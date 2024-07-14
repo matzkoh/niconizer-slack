@@ -1,38 +1,67 @@
 /* eslint-disable
-  @typescript-eslint/no-unsafe-member-access,
   @typescript-eslint/no-unsafe-argument,
+  @typescript-eslint/no-unsafe-call,
+  @typescript-eslint/no-unsafe-member-access,
 */
 
-import type { CliOptions } from '../bin'
+import type { CliOptions } from '../bin/index.js'
 
-import { parse, render } from './parser'
-import { SlackClient } from './slack'
-import { connect, send } from './socket'
+import { parse } from './parser.js'
+import { SlackClient, getPermalink } from './slack.js'
+import { connect, send } from './socket.js'
 
 export async function main(options: CliOptions) {
   await connect(options.url)
 
-  const slack = SlackClient.create(options.token)
+  const slack = SlackClient.create({
+    token: options.token,
+    appToken: options.appToken,
+  })
 
-  await slack.prepare()
-  await slack.start()
+  slack.rtm.on('message', ({ ack, event }) => {
+    if (typeof ack !== 'function') {
+      return
+    }
 
-  console.log(JSON.stringify(slack.getStats(), null, 2))
+    void ack()
 
-  slack.rtm.on('message', m => {
     if (
-      m.subtype ||
-      !m.text ||
-      (m.channel !== options.channel && slack.channels.get(m.channel) !== options.channel) ||
-      (!options.thread && m.thread_ts) ||
-      (!options.bot && m.bot_id)
+      event.subtype ||
+      !event.text ||
+      (options.channel && event.channel !== options.channel) ||
+      (options.channel && slack.channels.get(event.channel) !== options.channel) ||
+      options.excludeChannels.includes(event.channel) ||
+      options.excludeChannels.includes(slack.channels.get(event.channel)!) ||
+      options.excludeUsers.includes(event.user) ||
+      options.excludeUsers.includes(slack.users.get(event.user)!) ||
+      (!options.thread && event.thread_ts) ||
+      (!options.bot && event.bot_id)
     ) {
       return
     }
 
-    const node = parse(m.text)
-    const comment = render(node, slack.channels, slack.users, slack.emojis)
+    const node = parse(event.text)
+    const comment = slack.renderComment(node)
 
-    send(comment)
+    if (!comment) {
+      return
+    }
+
+    const url = getPermalink(event.channel, event.ts, event.thread_ts)
+    const channelName = slack.channels.get(event.channel)
+    const userName = slack.users.get(event.user)
+
+    send(options.showUsername ? `${userName}<br />${comment}` : comment)
+
+    if (options.logging) {
+      console.log(`#${channelName} @${userName} ${url} ${comment.replace(/\s+/g, '').slice(0, 40)}`)
+    }
   })
+
+  await slack.prepare()
+  await slack.start()
+
+  if (options.logging) {
+    console.log(JSON.stringify(slack.getStats(), undefined, 2))
+  }
 }
