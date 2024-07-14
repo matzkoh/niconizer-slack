@@ -1,6 +1,7 @@
 {
   "extends": "@tsconfig/node20",
   "compilerOptions": {
+    "module": "NodeNext",
     "experimentalDecorators": true,
     "sourceMap": true,
     "declaration": true,
