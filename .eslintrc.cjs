@@ -55,6 +55,17 @@ module.exports = {
       parserOptions: {
         project: 'tsconfig.json',
       },
+      settings: {
+        'import/parsers': {
+          '@typescript-eslint/parser': ['.ts', '.cts', '.mts', '.tsx'],
+        },
+        'import/resolver': {
+          typescript: {
+            alwaysTryTypes: true,
+            project: ['tsconfig.json'],
+          },
+        },
+      },
       rules: {
         '@typescript-eslint/ban-ts-comment': ['error', { 'ts-expect-error': false }],
         '@typescript-eslint/ban-types': ['error', { extendDefaults: true, types: { '{}': false } }],
