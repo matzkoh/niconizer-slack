@@ -64,6 +64,6 @@ export async function main(options: CliOptions) {
   await slack.start()
 
   if (options.logging) {
-    console.log(JSON.stringify(slack.getStats(), undefined, 2))
+    process.stderr.write(JSON.stringify(slack.getStats()) + '\n')
   }
 }
