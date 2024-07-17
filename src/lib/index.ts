@@ -53,7 +53,9 @@ export async function main(options: CliOptions) {
 
     send(options.showUsername ? `${userName}<br />${comment}` : comment)
 
-    if (options.logging) {
+    if (options.json) {
+      console.log(JSON.stringify({ ts: Math.trunc(event.ts), channel: channelName, user: userName, url, comment }))
+    } else if (options.logging) {
       console.log(`#${channelName} @${userName} ${url} ${comment.replace(/\s+/g, '').slice(0, 40)}`)
     }
   })

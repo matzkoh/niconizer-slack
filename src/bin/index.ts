@@ -15,6 +15,7 @@ export interface CliOptions {
   bot?: boolean
   showUsername?: boolean
   logging?: boolean
+  json?: boolean
 }
 
 new Command()
@@ -28,5 +29,6 @@ new Command()
   .requiredOption('-B --no-bot', 'exclude bot user', true)
   .requiredOption('--show-username', 'show username in the message', false)
   .requiredOption('-l --logging', 'enable logging', true)
+  .requiredOption('-j --json', 'enable json logging', false)
   .action((options: CliOptions) => main(options).catch(console.error))
   .parse()
