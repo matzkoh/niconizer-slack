@@ -4,6 +4,10 @@
   @typescript-eslint/no-unsafe-member-access,
 */
 
+import chalk from 'chalk'
+import truncate from 'cli-truncate'
+import link from 'terminal-link'
+
 import type { CliOptions } from '../bin/index.js'
 
 import { parse } from './parser.js'
@@ -53,11 +57,32 @@ export async function main(options: CliOptions) {
 
     send(options.showUsername ? `${userName}<br />${comment}` : comment)
 
-    if (options.json) {
-      console.log(JSON.stringify({ ts: Math.trunc(event.ts), channel: channelName, user: userName, url, comment }))
-    } else if (options.logging) {
-      console.log(`#${channelName} @${userName} ${url} ${comment.replace(/\s+/g, '').slice(0, 40)}`)
+    if (!options.logging) {
+      return
     }
+
+    console.log(
+      options.json
+        ? JSON.stringify({
+            ts: Math.trunc(event.ts * 1000),
+            channel: channelName,
+            user: userName,
+            url,
+            comment,
+          })
+        : truncate(
+            [
+              chalk.yellow(link(intl.format(event.ts * 1000), url)),
+              chalk.magenta(channelName),
+              chalk.green(userName),
+              slack.renderTerminal(node),
+            ]
+              .join(' ')
+              .replaceAll(/\s+/g, ' ')
+              .trim(),
+            process.stdout.columns || 80,
+          ),
+    )
   })
 
   await slack.prepare()
@@ -67,3 +92,11 @@ export async function main(options: CliOptions) {
     process.stderr.write(JSON.stringify(slack.getStats()) + '\n')
   }
 }
+
+const intl = new Intl.DateTimeFormat('ja-JP', {
+  month: 'numeric',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+})

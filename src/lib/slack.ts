@@ -9,7 +9,7 @@ import type { ConversationsListArguments } from '@slack/web-api'
 import { WebClient } from '@slack/web-api'
 
 import type { EmojiFixedNode } from './parser-emoji.js'
-import { render } from './render.js'
+import { toHtml, toTerminal } from './render.js'
 
 interface Resource {
   id: string
@@ -120,7 +120,11 @@ export class SlackClient {
   }
 
   renderComment(node: EmojiFixedNode) {
-    return render(node, this.channels, this.users, this.emojis)
+    return toHtml(node, this.channels, this.users, this.emojis)
+  }
+
+  renderTerminal(node: EmojiFixedNode) {
+    return toTerminal(node, this.channels, this.users, this.emojis)
   }
 }
 
