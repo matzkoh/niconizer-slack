@@ -51,9 +51,10 @@ export async function main(options: CliOptions) {
       return
     }
 
+    const formattedTs = intl.format(event.ts * 1000)
     const url = getPermalink(event.channel, event.ts, event.thread_ts)
-    const channelName = slack.channels.get(event.channel)
-    const userName = slack.users.get(event.user)
+    const channelName = slack.channels.get(event.channel) ?? String(event.channel)
+    const userName = slack.users.get(event.user) ?? String(event.user)
 
     send(options.showUsername ? `${userName}<br />${comment}` : comment)
 
@@ -70,18 +71,15 @@ export async function main(options: CliOptions) {
             url,
             comment,
           })
-        : truncate(
-            [
-              chalk.yellow(link(intl.format(event.ts * 1000), url)),
-              chalk.magenta(channelName),
-              chalk.green(userName),
-              slack.renderTerminal(node),
-            ]
-              .join(' ')
-              .replaceAll(/\s+/g, ' ')
-              .trim(),
-            process.stdout.columns || 80,
-          ),
+        : [
+            chalk.yellow(link(formattedTs, url)),
+            chalk.magenta(channelName),
+            chalk.green(userName),
+            truncate(
+              slack.renderTerminal(node).replaceAll(/\s+/g, ' ').trim(),
+              (process.stdout.columns || 80) - (formattedTs.length + channelName.length + userName.length + 3),
+            ),
+          ].join(' '),
     )
   })
 
