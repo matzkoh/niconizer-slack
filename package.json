@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@slack/socket-mode": "2.0.0",
-    "@slack/web-api": "7.3.1",
+    "@slack/web-api": "7.3.2",
     "chalk": "5.3.0",
     "cli-truncate": "4.0.0",
     "commander": "12.1.0",
