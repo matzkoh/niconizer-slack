@@ -68,7 +68,6 @@ module.exports = {
       },
       rules: {
         '@typescript-eslint/ban-ts-comment': ['error', { 'ts-expect-error': false }],
-        '@typescript-eslint/ban-types': ['error', { extendDefaults: true, types: { '{}': false } }],
         '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
         '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
