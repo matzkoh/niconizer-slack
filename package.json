@@ -50,7 +50,7 @@
     "@tsconfig/node20": "20.1.4",
     "@typescript-eslint/eslint-plugin": "8.24.1",
     "@typescript-eslint/parser": "8.24.1",
-    "cspell": "8.17.4",
+    "cspell": "8.17.5",
     "eslint": "8.57.1",
     "eslint-config-prettier": "9.1.0",
     "eslint-import-resolver-typescript": "3.8.3",
