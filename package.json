@@ -44,7 +44,7 @@
     "emoji-datasource": "15.1.2",
     "slack-message-parser": "3.0.2",
     "terminal-link": "3.0.0",
-    "ws": "8.18.1"
+    "ws": "8.18.2"
   },
   "devDependencies": {
     "@tsconfig/node20": "20.1.5",
