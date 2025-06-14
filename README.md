@@ -11,6 +11,25 @@
 $ npm i -g niconizer-slack
 ```
 
+## Slack App Setup
+
+To use niconizer-slack, you need to create a Slack App. You can use the provided manifest file to quickly set up the app:
+
+1. Go to [Slack API: Your Apps](https://api.slack.com/apps) and click "Create New App"
+2. Choose "From an app manifest"
+3. Select your workspace
+4. Copy the contents of `niconizer-slack-manifest.json` and paste it into the JSON tab
+5. Review and create the app
+6. After creation, go to "OAuth & Permissions" and install the app to your workspace
+7. Copy the "Bot User OAuth Token" (starts with `xoxb-`) - this is your `-t/--token`
+8. Go to "Basic Information" > "App-Level Tokens" and create a token with `connections:write` scope
+9. Copy this token (starts with `xapp-`) - this is your `-a/--app-token`
+
+The manifest configures the app with:
+- Socket Mode enabled (required for the app)
+- All necessary bot scopes for reading messages and user information
+- Event subscriptions for message and emoji changes
+
 ## Usage
 
 ```
@@ -35,7 +54,6 @@ Options:
 $ niconizer-slack -t SLACK_API_TOKEN_HERE -a SLACK_APP_TOKEN_HERE
 ```
 
-[Create and regenerate API tokens](https://get.slack.help/hc/articles/215770388)
 
 Both token (-t) and app-token (-a) are required. Other options are optional.
 
