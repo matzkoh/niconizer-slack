@@ -43,7 +43,7 @@
     "commander": "12.1.0",
     "emoji-datasource": "15.1.2",
     "slack-message-parser": "3.0.2",
-    "terminal-link": "3.0.0",
+    "terminal-link": "4.0.0",
     "ws": "8.18.3"
   },
   "devDependencies": {
