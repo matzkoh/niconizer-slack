@@ -26,6 +26,7 @@ To use niconizer-slack, you need to create a Slack App. You can use the provided
 9. Copy this token (starts with `xapp-`) - this is your `-a/--app-token`
 
 The manifest configures the app with:
+
 - Socket Mode enabled (required for the app)
 - All necessary bot scopes for reading messages and user information
 - Event subscriptions for message and emoji changes
@@ -53,7 +54,6 @@ Options:
 ```bash
 $ niconizer-slack -t SLACK_API_TOKEN_HERE -a SLACK_APP_TOKEN_HERE
 ```
-
 
 Both token (-t) and app-token (-a) are required. Other options are optional.
 
