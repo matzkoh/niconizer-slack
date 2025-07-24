@@ -21,10 +21,9 @@
     "src"
   ],
   "scripts": {
-    "dev": "tsx --env-file=.env.local ./src/bin/index.ts",
-    "prepare": "husky",
     "prebuild": "rimraf dist",
     "build": "tsc",
+    "dev": "tsx --env-file=.env.local ./src/bin/index.ts",
     "fix": "run-p fix:*",
     "fix:eslint": "npm run lint:eslint -- --fix",
     "fix:prettier": "npm run lint:prettier -- --write",
@@ -33,6 +32,7 @@
     "lint:prettier": "prettier -c .",
     "lint:spell": "cspell --gitignore --no-progress .",
     "lint:type": "tsc --noEmit",
+    "prepare": "husky",
     "test": "run-s lint build"
   },
   "dependencies": {
