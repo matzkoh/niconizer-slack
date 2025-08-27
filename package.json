@@ -36,7 +36,7 @@
     "test": "run-s lint build"
   },
   "dependencies": {
-    "@slack/socket-mode": "2.0.4",
+    "@slack/socket-mode": "2.0.5",
     "@slack/web-api": "7.9.3",
     "chalk": "5.4.1",
     "cli-truncate": "4.0.0",
