@@ -47,7 +47,7 @@
     "ws": "8.18.3"
   },
   "devDependencies": {
-    "@tsconfig/node20": "20.1.7",
+    "@tsconfig/node20": "20.1.8",
     "@typescript-eslint/eslint-plugin": "8.47.0",
     "@typescript-eslint/parser": "8.47.0",
     "cspell": "9.3.2",
