@@ -61,7 +61,7 @@
     "prettier": "3.7.3",
     "prettier-plugin-packagejson": "2.5.20",
     "rimraf": "6.1.2",
-    "tsx": "4.20.6",
+    "tsx": "4.21.0",
     "typescript": "5.9.3"
   },
   "packageManager": "npm@11.6.4",
