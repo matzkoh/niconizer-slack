@@ -38,7 +38,7 @@
   "dependencies": {
     "@slack/socket-mode": "2.0.5",
     "@slack/web-api": "7.9.3",
-    "chalk": "5.4.1",
+    "chalk": "5.6.2",
     "cli-truncate": "4.0.0",
     "commander": "14.0.2",
     "emoji-datasource": "15.1.2",
