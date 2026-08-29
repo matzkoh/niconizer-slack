@@ -64,7 +64,7 @@
     "tsx": "4.21.1",
     "typescript": "5.9.3"
   },
-  "packageManager": "npm@11.6.4",
+  "packageManager": "npm@11.19.1",
   "engines": {
     "node": ">= 20",
     "npm": ">= 9"
